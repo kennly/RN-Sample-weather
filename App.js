@@ -1,23 +1,77 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import {
+	StyleSheet,
+	Text,
+	View,
+	KeyboardAvoidingView,
+	Platform,
+	TextInput
+} from "react-native";
+
+import SearchInput from "./components/SearchInput.js";
+
+import getImageForWeather from "./utils/getImageForWeather";
 
 export default class App extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-      </View>
-    );
-  }
+	render() {
+		return (
+			<KeyboardAvoidingView style={styles.container} behavior="padding">
+				<ImageBackground
+					source={getImageForWeather("Clear")}
+					style={styles.imageContainer}
+					imageStyle={styles.image}
+				>
+					<View style={styles.detailsContainer}>
+						<Text style={[styles.largeText, styles.textStyle]}>Brisbane</Text>
+						<Text style={[styles.smallText, styles.textStyle]}>Shower</Text>
+						<Text style={[styles.largeText, styles.textStyle]}>24°C</Text>
+						<SearchInput placeholder="Search any city" />
+					</View>
+				</ImageBackground>
+			</KeyboardAvoidingView>
+		);
+	}
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+	container: {
+		flex: 1,
+		backgroundColor: "#fff"
+	},
+	imageContainer: {
+		flex: 1
+	},
+	image: {
+		flex: 1,
+		width: null,
+		height: null,
+		resizeMode: "cover"
+	},
+	detailsContainer: {
+		flex: 1,
+		justifyContent: "center",
+		backgroundColor: "rgba(0,0,0,0.2)",
+		paddingHorizontal: 20
+	},
+	textStyle: {
+		textAlign: "center",
+		fontFamily: Platform.OS === "ios" ? "AvenirNext-Regular" : "Roboto",
+		color: "white"
+	},
+	largeText: {
+		fontSize: 44
+	},
+	smallText: {
+		fontSize: 18
+	},
+	textInput: {
+		backgroundColor: "#666",
+		color: "white",
+		height: 40,
+		width: 300,
+		marginTop: 20,
+		marginHorizontal: 20,
+		paddingHorizontal: 10,
+		alignSelf: "center"
+	}
 });
